@@ -21,6 +21,8 @@ import Resources from './pages/Resources';
 import Forum from './pages/forum';
 import JoinNow from './pages/JoinNow';
 import Events from './pages/Events';
+import BrowseProducts from "./pages/BrowseProducts"
+import SellProduct from "./pages/SellProduct"
 
 function App() {
   return (
@@ -45,6 +47,8 @@ function App() {
             <Route path="/Forum" element={<Forum />} />
             <Route path="/JoinNow" element={<JoinNow />} />
             <Route path="/Events" element={<Events />} />
+            <Route path="/BrowseProducts" element={<BrowseProducts />} />
+            <Route path="/SellProduct" element={<SellProduct />} />
 
           </Routes>
         </main>

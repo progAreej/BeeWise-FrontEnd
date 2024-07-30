@@ -37,7 +37,7 @@ const Home = () => {
   ];
 
   return (
-    <div className='bg-page'>
+    <div className='bg-white'>
       {/* Hero Section */}
       <div
         className="hero-section bg-fixed bg-cover bg-center   h-screen p-8 relative transition-transform duration-500 ease-in-out"
@@ -70,7 +70,7 @@ const Home = () => {
          </section>
 
       {/* Section 1: Introduction to Beekeeping */}
-      <section className="bg-page py-12">
+      <section className="bg-white py-12">
         <div className="container mx-auto px-4 my-12">
           <div className="flex flex-col md:flex-row items-center">
             {/* Text Section */}
@@ -98,12 +98,12 @@ const Home = () => {
       </section>
 
       {/* Section 2: Products & Services */}
-      <section className="py-16">
-        <h2 className="text-4xl font-extrabold text-gray-900 text-center mb-12 animate__animated animate__fadeIn animate__delay-1s">
+      <section className="py-12 bg-page">
+        <h2 className="text-4xl font-bold text-goldD text-center mb-12 ">
           Discover Our Products & Services
         </h2>
         <div className="container mx-auto max-w-7xl px-2  py-20">
-          <Swiper
+        <Swiper
             effect="coverflow"
             grabCursor={true}
             centeredSlides={true}
@@ -131,45 +131,80 @@ const Home = () => {
             {/* SwiperSlide Content */}
             {[
               {
-                img: '/src/assets/imgs/bee-suit.jpg',
+                img: 'https://i0.wp.com/post.healthline.com/wp-content/uploads/2021/04/honey-1296x728-header.jpg?w=1155&h=1528',
                 title: 'Protective Bee Suit',
                 description: 'High-quality suit offering full-body protection against stings.',
               },
               {
-                img: '/src/assets/imgs/honey-extractor.jpg',
+                img: 'https://i0.wp.com/post.healthline.com/wp-content/uploads/2021/04/honey-1296x728-header.jpg?w=1155&h=1528',
                 title: 'Honey Extractor',
                 description: 'Efficient extractor ensuring pure honey without damaging the comb.',
               },
               {
-                img: '/src/assets/imgs/beekeeping-kit.jpg',
+                img: 'https://i0.wp.com/post.healthline.com/wp-content/uploads/2021/04/honey-1296x728-header.jpg?w=1155&h=1528',
                 title: 'Beekeeping Starter Kit',
                 description: 'Complete kit with essential tools for starting your beekeeping journey.',
               },
               {
-                img: '/src/assets/imgs/pollination-service.jpg',
+                img: 'https://i0.wp.com/post.healthline.com/wp-content/uploads/2021/04/honey-1296x728-header.jpg?w=1155&h=1528',
                 title: 'Pollination Service',
                 description: 'Enhance crop yields with our professional pollination services.',
               },
               {
-                img: '/src/assets/imgs/pollination-service.jpg',
+                img: 'https://i0.wp.com/post.healthline.com/wp-content/uploads/2021/04/honey-1296x728-header.jpg?w=1155&h=1528',
                 title: 'Pollination Service',
                 description: 'Enhance crop yields with our professional pollination services.',
               },
               {
-                img: '/src/assets/imgs/pollination-service.jpg',
+                img: 'https://i0.wp.com/post.healthline.com/wp-content/uploads/2021/04/honey-1296x728-header.jpg?w=1155&h=1528',
+                title: 'Pollination Service',
+                description: 'Enhance crop yields with our professional pollination services.',
+              },
+              {
+                img: 'https://i0.wp.com/post.healthline.com/wp-content/uploads/2021/04/honey-1296x728-header.jpg?w=1155&h=1528',
+                title: 'Pollination Service',
+                description: 'Enhance crop yields with our professional pollination services.',
+              },
+              {
+                img: 'https://i0.wp.com/post.healthline.com/wp-content/uploads/2021/04/honey-1296x728-header.jpg?w=1155&h=1528',
+                title: 'Pollination Service',
+                description: 'Enhance crop yields with our professional pollination services.',
+              },
+              {
+                img: 'https://i0.wp.com/post.healthline.com/wp-content/uploads/2021/04/honey-1296x728-header.jpg?w=1155&h=1528',
+                title: 'Pollination Service',
+                description: 'Enhance crop yields with our professional pollination services.',
+              },
+              {
+                img: 'https://i0.wp.com/post.healthline.com/wp-content/uploads/2021/04/honey-1296x728-header.jpg?w=1155&h=1528',
+                title: 'Pollination Service',
+                description: 'Enhance crop yields with our professional pollination services.',
+              },
+              {
+                img: 'https://i0.wp.com/post.healthline.com/wp-content/uploads/2021/04/honey-1296x728-header.jpg?w=1155&h=1528',
+                title: 'Pollination Service',
+                description: 'Enhance crop yields with our professional pollination services.',
+              },
+              {
+                img: 'https://i0.wp.com/post.healthline.com/wp-content/uploads/2021/04/honey-1296x728-header.jpg?w=1155&h=1528',
+                title: 'Pollination Service',
+                description: 'Enhance crop yields with our professional pollination services.',
+              },
+              {
+                img: 'https://i0.wp.com/post.healthline.com/wp-content/uploads/2021/04/honey-1296x728-header.jpg?w=1155&h=1528',
                 title: 'Pollination Service',
                 description: 'Enhance crop yields with our professional pollination services.',
               },
             ].map((item, index) => (
-              <SwiperSlide key={index} className="flex justify-center transition-transform duration-500 hover:scale-105">
-                <div className="bg-white rounded-xl shadow-lg overflow-hidden w-80 mx-auto transform transition-transform duration-300 hover:scale-105">
+              <SwiperSlide key={index} className="flex justify-center transition-transform duration-500 hover:scale-250 ">
+                <div className="bg-white rounded-xl shadow-lg overflow-hidden w-80 h-96  transform transition-transform duration-300 hover:scale-105">
                   <img src={item.img} alt={item.title} className="w-full h-48 object-cover transition-transform duration-300 transform hover:scale-105" />
                   <div className="p-6">
-                    <h3 className="text-2xl font-bold text-gray-800 mb-2 transition-colors duration-300 hover:text-goldL">{item.title}</h3>
-                    <p className="text-gray-600 mb-4 transition-opacity duration-300 hover:opacity-70">{item.description}</p>
+                    <h3 className="text-2xl font-bold text-goldD mb-2 transition-colors duration-300 hover:text-goldL">{item.title}</h3>
+                    <p className="text-gray-600 mb-4 transition-opacity duration-300 hover:opacity-70">{item.description}</p><br />
                     <Link
                       to="#"
-                      className="inline-block bg-yellow-500 text-white py-2 px-6 rounded-full shadow hover:bg-yellow-600 transition-transform duration-300 transform hover:scale-105"
+                      className="bg-goldD text-white font-bold py-2 px-8 rounded-xl transition-colors duration-300 transform hover:scale-110"
                     >
                       Learn More
                     </Link>
@@ -182,7 +217,7 @@ const Home = () => {
       </section>
 
 
-      <section className="py-12 bg-page">
+      <section className="py-12 bg-white">
          <div className="container mx-auto px-6">
            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
              {/* Learn About Beekeeping */}
