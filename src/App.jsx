@@ -1,6 +1,3 @@
-
-
-
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
@@ -23,14 +20,28 @@ import JoinNow from './pages/JoinNow';
 import Events from './pages/Events';
 import BrowseProducts from "./pages/BrowseProducts"
 import SellProduct from "./pages/SellProduct"
+import Profile from './pages/Profile';
+// import subscibe from "./pages/subscibe"
+import UserRoleSelection from './pages/UserRoleSelection';
+import Subscription from './pages/Subscription';
+import SubscriptionPage from './pages/SubscriptionPage';
+import Cart from "./pages/Cart"
+import BeekeeperDashboard from "./pages/BeekeeperDashboard"
+import Products from './pages/Products';
+import ShopsPage from './pages/ShopsPage';
+import ProductsPage from './pages/Products';
 
 function App() {
+  
   return (
     <Router>
       <div className="flex flex-col min-h-screen">
        
         <main className="flex-grow">
           <Routes>
+          <Route path="/ShopsPage" element={<ShopsPage />} />
+          <Route path="/products/:shopId" element={<ProductsPage />} />
+          <Route path="/products/:shopId" element={<Products />} />
             <Route path="/" element={<Home />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/OurStory" element={<OurStory />} />
@@ -49,6 +60,14 @@ function App() {
             <Route path="/Events" element={<Events />} />
             <Route path="/BrowseProducts" element={<BrowseProducts />} />
             <Route path="/SellProduct" element={<SellProduct />} />
+            <Route path="/Profile" element={<Profile />} />
+            <Route path="/UserRoleSelection" element={<UserRoleSelection />} />
+            <Route path="/Subscription" element={<Subscription />} />
+            <Route path="/SubscriptionPage" element={<SubscriptionPage />} />
+            <Route path="/Cart" element={<Cart />} />
+            <Route path="/BeekeeperDashboard" element={<BeekeeperDashboard />} />
+            
+            {/* <Route path="/subscibe" element={<subscibe />} /> */}
 
           </Routes>
         </main>

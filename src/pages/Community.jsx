@@ -1,247 +1,428 @@
-// // // src/pages/Community.js
-// // import React, { useState, useEffect } from 'react';
+import React, { useState,useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaComments, FaUser, FaClock, FaThumbtack, FaSearch, FaEdit, FaTrash } from 'react-icons/fa';
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
-// // function Community() {
-// //   const [posts, setPosts] = useState([]);
-// //   const [newPost, setNewPost] = useState('');
+const forumCategories = [
+  { id: 1, name: 'General Discussion', icon: '🐝' },
+  { id: 2, name: 'Beekeeping Tips', icon: '🍯' },
+  { id: 3, name: 'Equipment & Tools', icon: '🧰' },
+  { id: 4, name: 'Honey Production', icon: '🥄' },
+  { id: 5, name: 'Health & Diseases', icon: '🩺' },
+];
 
-// //   useEffect(() => {
-// //     // Fetch community posts from an API or database
-// //     // For now, we'll use dummy data
-// //     setPosts([
-// //       { id: 1, author: 'John Doe', content: 'Has anyone tried using lavender near their hives?', date: '2024-07-26' },
-// //       { id: 2, author: 'Jane Smith', content: 'Looking for recommendations on the best smoker fuel.', date: '2024-07-25' },
-// //     ]);
-// //   }, []);
+const initialPosts = [
+  {
+    id: 1,
+    title: 'Welcome to the Bee Wise Community!',
+    description: 'Introduce yourself and get to know the community.',
+    author: 'Admin',
+    date: '2024-03-01',
+    category: 1,
+    replies: [],
+    views: 230,
+    isPinned: true,
+  },
+  // Add other initial posts here
+];
 
-// //   const handleSubmit = (e) => {
-// //     e.preventDefault();
-// //     // Add new post to the list (in a real app, you'd send this to a server)
-// //     const newPostObj = {
-// //       id: posts.length + 1,
-// //       author: 'Current User',
-// //       content: newPost,
-// //       date: new Date().toISOString().split('T')[0],
-// //     };
-// //     setPosts([newPostObj, ...posts]);
-// //     setNewPost('');
-// //   };
+const ReplyForm = ({ onSubmit, initialContent = '', onCancel }) => {
+  const [content, setContent] = useState(initialContent);
 
-// //   return (
-// //     <div className="container mx-auto px-4 py-8">
-// //       <h1 className="text-4xl font-bold mb-8">Beekeeping Community</h1>
-// //       <form onSubmit={handleSubmit} className="mb-8">
-// //         <textarea
-// //           value={newPost}
-// //           onChange={(e) => setNewPost(e.target.value)}
-// //           className="w-full px-3 py-2 border rounded-lg"
-// //           rows="3"
-// //           placeholder="Share your thoughts or ask a question..."
-// //           required
-// //         ></textarea>
-// //         <button type="submit" className="mt-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Post</button>
-// //       </form>
-// //       <div className="space-y-6">
-// //         {posts.map(post => (
-// //           <div key={post.id} className="bg-white rounded-lg shadow-md p-6">
-// //             <p className="font-semibold">{post.author}</p>
-// //             <p className="text-gray-600 text-sm mb-2">{post.date}</p>
-// //             <p>{post.content}</p>
-// //           </div>
-// //         ))}
-// //       </div>
-// //     </div>
-// //   );
-// // }
-
-// // export default Community;
-
-
-// import React from 'react';
-
-// const Community = () => {
-//   return (
-//     <div className="container mx-auto px-4 py-8">
-//       <h1 className="text-4xl font-bold mb-6 text-center">Community</h1>
-
-//       <section id="forum" className="mb-12">
-//         <h2 className="text-3xl font-semibold mb-4">Forum</h2>
-//         <p className="text-lg mb-4">
-//           Engage with other beekeepers and enthusiasts in our community forum. Here, you can view posts, join discussions, and share your experiences.
-//         </p>
-//         <div className="bg-white shadow-lg rounded-lg p-6">
-//           <h3 className="text-2xl font-semibold mb-4">Recent Discussions</h3>
-//           <ul className="list-disc list-inside ml-4">
-//             <li className="mb-2">
-//               <a href="#" className="text-blue-500 hover:underline">
-//                 <strong>Tips for Beekeeping in Hot Weather</strong>
-//               </a>
-//               <p className="text-sm text-gray-600">Join the conversation about managing your hive during hot weather.</p>
-//             </li>
-//             <li className="mb-2">
-//               <a href="#" className="text-blue-500 hover:underline">
-//                 <strong>Best Practices for Hive Inspections</strong>
-//               </a>
-//               <p className="text-sm text-gray-600">Discuss techniques and best practices for inspecting your hive effectively.</p>
-//             </li>
-//             <li className="mb-2">
-//               <a href="#" className="text-blue-500 hover:underline">
-//                 <strong>Dealing with Pests and Predators</strong>
-//               </a>
-//               <p className="text-sm text-gray-600">Share your experiences and solutions for managing pests and predators in your apiary.</p>
-//             </li>
-//           </ul>
-//           <a href="/forum" className="mt-6 inline-block bg-goldD text-white font-bold py-2 px-6 rounded-xl transition-colors duration-300 hover:bg-goldL">
-//             Join the Forum
-//           </a>
-//         </div>
-//       </section>
-
-//       <section id="events">
-//         <h2 className="text-3xl font-semibold mb-4">Events</h2>
-//         <p className="text-lg mb-4">
-//           Stay updated on upcoming beekeeping events, workshops, and meetups. Participate in events to connect with fellow beekeepers and enhance your skills.
-//         </p>
-//         <div className="bg-white shadow-lg rounded-lg p-6">
-//           <h3 className="text-2xl font-semibold mb-4">Upcoming Events</h3>
-//           <ul className="list-disc list-inside ml-4">
-//             <li className="mb-4">
-//               <div className="flex flex-col">
-//                 <span className="text-xl font-semibold">Beekeeping Workshop</span>
-//                 <span className="text-gray-600">August 15, 2024</span>
-//                 <p className="mt-2 text-gray-700">A hands-on workshop covering essential beekeeping techniques. Perfect for beginners and experienced beekeepers alike.</p>
-//               </div>
-//             </li>
-//             <li className="mb-4">
-//               <div className="flex flex-col">
-//                 <span className="text-xl font-semibold">Bee Festival</span>
-//                 <span className="text-gray-600">September 10, 2024</span>
-//                 <p className="mt-2 text-gray-700">Celebrate all things bees with activities, exhibits, and local honey tastings.</p>
-//               </div>
-//             </li>
-//             <li>
-//               <div className="flex flex-col">
-//                 <span className="text-xl font-semibold">Advanced Beekeeping Techniques</span>
-//                 <span className="text-gray-600">October 5, 2024</span>
-//                 <p className="mt-2 text-gray-700">An advanced course on optimizing hive health and productivity.</p>
-//               </div>
-//             </li>
-//           </ul>
-//           <a href="/events" className="mt-6 inline-block bg-goldD text-white font-bold py-2 px-6 rounded-xl transition-colors duration-300 hover:bg-goldL">
-//             View All Events
-//           </a>
-//         </div>
-//       </section>
-//     </div>
-//   );
-// };
-
-// export default Community;
-
-import React from 'react';
-import { useSpring, animated } from '@react-spring/web'; // Updated import statement
-import { FaUserFriends, FaComments, FaShareAlt, FaCalendarAlt } from 'react-icons/fa';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-
-const Community = () => {
-  // Animation for the page transitions
-  const fadeIn = useSpring({
-    opacity: 1,
-    from: { opacity: 0 },
-    config: { duration: 800 },
-  });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (content.trim()) {
+      onSubmit(content);
+      setContent('');
+    }
+  };
 
   return (
-    <animated.div style={fadeIn} className="container mx-auto px-6 py-8 bg-gradient-to-b from-blue-50 to-blue-100">
+    <form onSubmit={handleSubmit} className="mt-4">
+      <input
+        type="text"
+        className="w-full p-2 border border-goldL rounded"
+        placeholder="Type your reply..."
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+      />
+      <button type="submit" className="mt-2 px-4 py-2 bg-goldD text-white rounded">Reply</button>
+      {onCancel && (
+        <button
+          type="button"
+          onClick={onCancel}
+          className="ml-2 px-4 py-2 bg-gray-500 text-white rounded"
+        >
+          Cancel
+        </button>
+      )}
+    </form>
+  );
+};
+
+const ForumPost = ({ post, onReply, onUpdatePost, onDeletePost, onUpdateReply, onDeleteReply }) => {
+  const [showReplyForm, setShowReplyForm] = useState(false);
+  const [editingPost, setEditingPost] = useState(false);
+  const [editingReply, setEditingReply] = useState(null);
+  const [replyContent, setReplyContent] = useState('');
+  const [replyToReply, setReplyToReply] = useState(null);
+
+  const handleReplySubmit = (content) => {
+    onReply(post.id, content, replyToReply);
+    setReplyContent('');
+    setReplyToReply(null);
+    setShowReplyForm(false);
+  };
+
+  const handleUpdatePost = () => {
+    onUpdatePost(post.id, replyContent, post.description, post.category);
+    setReplyContent('');
+    setEditingPost(false);
+  };
+
+  const handleUpdateReply = (replyId) => {
+    onUpdateReply(post.id, replyId, replyContent);
+    setReplyContent('');
+    setEditingReply(null);
+  };
+
+  const renderReplies = (replies, parentId = null) => {
+    return replies
+      .filter(reply => reply.parentId === parentId)
+      .map((reply) => (
+        <div key={reply.id} className="ml-6 mt-2 border-l-2 border-goldL pl-4">
+          {editingReply === reply.id ? (
+            <ReplyForm
+              initialContent={reply.content}
+              onSubmit={(content) => handleUpdateReply(reply.id)}
+              onCancel={() => setEditingReply(null)}
+            />
+          ) : (
+            <>
+              <div className="text-sm text-gray-600">{reply.author}</div>
+              <div>{reply.content}</div>
+              <div className="flex space-x-2 mt-2">
+                <button
+                  onClick={() => {
+                    setReplyContent(reply.content);
+                    setEditingReply(reply.id);
+                  }}
+                  className="text-sm text-blue-500"
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={() => onDeleteReply(post.id, reply.id)}
+                  className="text-sm text-red-500"
+                >
+                  Delete
+                </button>
+                <button
+                  onClick={() => setReplyToReply(reply.id)}
+                  className="text-sm text-blue-500"
+                >
+                  Reply
+                </button>
+              </div>
+              {replyToReply === reply.id && (
+                <ReplyForm
+                  onSubmit={handleReplySubmit}
+                  onCancel={() => setReplyToReply(null)}
+                />
+              )}
+              {renderReplies(replies, reply.id)}
+            </>
+          )}
+        </div>
+      ));
+  };
+
+  return (
+    <motion.div
+      className="bg-page rounded-lg shadow-md p-4 mb-4 hover:shadow-lg transition-shadow duration-300"
+      whileHover={{ scale: 1.02 }}
+      layout
+    >
+      {editingPost ? (
+        <ReplyForm
+          initialContent={post.title}
+          onSubmit={handleUpdatePost}
+          onCancel={() => setEditingPost(false)}
+        />
+      ) : (
+        <>
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="text-lg font-semibold text-brown">
+              {post.isPinned && <FaThumbtack className="inline-block mr-2 text-goldD" />}
+              {post.title}
+            </h3>
+            <span className="text-sm text-gray-500">
+              {forumCategories.find(cat => cat.id === post.category).icon}
+            </span>
+          </div>
+          <p className="text-gray-800">{post.description}</p>
+          <div className="flex justify-between text-sm text-brown">
+            <span><FaUser className="inline-block mr-1" /> {post.author}</span>
+            <span>
+            <div><FaComments className="inline-block mr-1" /> {post.replies.length} replies</div>
+            <div><FaClock className="inline-block mr-1" /> {post.date}</div>
+            </span>
+          </div>
+
+        </>
+      )}
+
+      {/* Edit and Delete buttons for the post */}
+      <div className="flex space-x-2 mt-2">
+        <button
+          onClick={() => setEditingPost(!editingPost)}
+          className="text-sm text-blue-500 font-bold"
+        >
+          {editingPost ? 'Cancel' : 'Edit'}
+        </button>
+        <button
+          onClick={() => onDeletePost(post.id)}
+          className="text-sm text-red-500 font-bold"
+        >
+          Delete
+        </button>
+        <button
+          onClick={() => setShowReplyForm(!showReplyForm)}
+          className="text-sm text-goldD font-bold"
+        >
+          {showReplyForm ? 'Cancel' : 'Reply'}
+        </button>
+      </div>
+
+      {/* Replies */}
+      <div className="mt-4">
+        {renderReplies(post.replies)}
+      </div>
+
+      {/* Reply form */}
+      {showReplyForm && (
+        <ReplyForm
+          onSubmit={handleReplySubmit}
+          onCancel={() => setShowReplyForm(false)}
+        />
+      )}
+    </motion.div>
+  );
+};
+
+const Community = () => {
+  const [posts, setPosts] = useState(initialPosts);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredPosts, setFilteredPosts] = useState(initialPosts);
+  const [newPostTitle, setNewPostTitle] = useState('');
+  const [newPostDescription, setNewPostDescription] = useState('');
+  const [newPostCategory, setNewPostCategory] = useState(null);
+
+  useEffect(() => {
+    const filtered = posts.filter(post =>
+      (!selectedCategory || post.category === selectedCategory) &&
+      (post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        post.description.toLowerCase().includes(searchTerm.toLowerCase()))
+    );
+    setFilteredPosts(filtered);
+  }, [selectedCategory, searchTerm, posts]);
+
+  const handleNewPostSubmit = (e) => {
+    e.preventDefault();
+    if (newPostTitle.trim() && newPostDescription.trim() && newPostCategory) {
+      const newPost = {
+        id: posts.length + 1,
+        title: newPostTitle,
+        description: newPostDescription,
+        author: 'User', // Replace with the actual user's name
+        date: new Date().toISOString().split('T')[0],
+        category: newPostCategory,
+        replies: [],
+        views: 0,
+        isPinned: false,
+      };
+      setPosts([...posts, newPost]);
+      setNewPostTitle('');
+      setNewPostDescription('');
+      setNewPostCategory(null);
+    }
+  };
+
+  const handleReply = (postId, replyContent, parentId) => {
+    const updatedPosts = posts.map(post => {
+      if (post.id === postId) {
+        const newReply = { id: post.replies.length + 1, author: 'User', content: replyContent, parentId: parentId || null };
+        return {
+          ...post,
+          replies: [...post.replies, newReply],
+        };
+      }
+      return post;
+    });
+    setPosts(updatedPosts);
+  };
+
+  const handleUpdatePost = (postId, newTitle, newDescription, newCategory) => {
+    const updatedPosts = posts.map(post => {
+      if (post.id === postId) {
+        return {
+          ...post,
+          title: newTitle,
+          description: newDescription,
+          category: newCategory,
+        };
+      }
+      return post;
+    });
+    setPosts(updatedPosts);
+  };
+
+  const handleDeletePost = (postId) => {
+    const updatedPosts = posts.filter(post => post.id !== postId);
+    setPosts(updatedPosts);
+  };
+
+  const handleUpdateReply = (postId, replyId, content) => {
+    const updatedPosts = posts.map(post => {
+      if (post.id === postId) {
+        const updatedReplies = post.replies.map(reply => {
+          if (reply.id === replyId) {
+            return {
+              ...reply,
+              content,
+            };
+          }
+          return reply;
+        });
+        return {
+          ...post,
+          replies: updatedReplies,
+        };
+      }
+      return post;
+    });
+    setPosts(updatedPosts);
+  };
+
+  const handleDeleteReply = (postId, replyId) => {
+    const updatedPosts = posts.map(post => {
+      if (post.id === postId) {
+        const updatedReplies = post.replies.filter(reply => reply.id !== replyId);
+        return {
+          ...post,
+          replies: updatedReplies,
+        };
+      }
+      return post;
+    });
+    setPosts(updatedPosts);
+  };
+
+  return (
+    <div>
       <Header />
-      <h1 className="text-4xl font-extrabold mb-10 text-center text-blue-800">Community</h1>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        className="container mx-auto px-4 py-20"
+      >
+        <h1 className="text-3xl font-bold text-goldD mb-8 text-center ">Bee Wise Community</h1>
 
-      {/* Introduction Section */}
-      <section id="introduction" className="mb-14">
-        <div className="flex items-center mb-6">
-          <FaUserFriends className="text-4xl text-blue-700 mr-4 animate-pulse" />
-          <h2 className="text-3xl font-semibold text-blue-700">Welcome to the BeeWise Community</h2>
+        {/* Search and Category Filters */}
+        <div className=" items-center space-y-4 mb-4">
+          <div className="mb-8">
+           <div className="relative">
+             <input
+              type="text"
+              placeholder="Search forum..."
+              className="w-full p-3 pl-10 rounded-xl border-2 border-goldL focus:border-goldD focus:outline-none transition-colors duration-300"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-goldD" />
+          </div>
         </div>
-        <p className="text-base mb-6 text-gray-800">
-          Join our vibrant community of beekeepers and enthusiasts! Here, you can connect, share experiences, and learn from each other.
-        </p>
-        <div className="bg-white rounded-lg shadow-lg p-6">
-          <h3 className="text-2xl font-semibold mb-4 text-blue-600">Get Involved</h3>
-          <p className="text-gray-700">
-            Whether you're a seasoned beekeeper or just starting, our community is here to support you. Explore discussions, join events, and share your beekeeping journey.
-          </p>
+          <div className="mb-8">
+           {/* <h2 className="text-2xl font-bold text-brown mb-4">Categories</h2> */}
+           <div className="flex flex-wrap gap-6  text-center justify-center">
+             {forumCategories.map((category) => (
+              <motion.button
+                key={category.id}
+                className={`px-4 py-4 rounded-xl text-white transition-colors duration-300 ${
+                  selectedCategory === category.id ? 'bg-brown' : 'bg-goldL hover:bg-goldD'
+                }`}
+                onClick={() => setSelectedCategory(category.id === selectedCategory ? null : category.id)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {category.icon} {category.name}
+              </motion.button>
+            ))}
+          </div>
         </div>
-      </section>
+        </div>
 
-      {/* Discussion Forum Section */}
-      <section id="discussion-forum" className="mb-14">
-        <div className="flex items-center mb-6">
-          <FaComments className="text-4xl text-green-700 mr-4 animate-bounce" />
-          <h2 className="text-3xl font-semibold text-blue-700">Discussion Forum</h2>
+       
+
+        {/* Posts */}
+        <div>
+          <h2 className="text-2xl font-bold text-brown mb-4">Posts</h2>
+          <AnimatePresence>
+            {filteredPosts.map((post) => (
+              <ForumPost
+                key={post.id}
+                post={post}
+                onReply={handleReply}
+                onUpdatePost={handleUpdatePost}
+                onDeletePost={handleDeletePost}
+                onUpdateReply={handleUpdateReply}
+                onDeleteReply={handleDeleteReply}
+              />
+            ))}
+          </AnimatePresence>
         </div>
-        <p className="text-base mb-6 text-gray-800">
-          Engage in meaningful discussions with fellow beekeepers. Share your questions, solutions, and experiences in our dedicated forums.
-        </p>
-        <div className="grid md:grid-cols-2 gap-8">
-          {[
-            { title: "General Beekeeping", description: "Discuss various aspects of beekeeping, from hive management to bee health." },
-            { title: "Honey Production", description: "Share tips and techniques for producing high-quality honey." },
-            { title: "Equipment & Tools", description: "Talk about beekeeping equipment and tools, and share reviews and recommendations." },
-            { title: "Pests & Diseases", description: "Get advice on managing pests and diseases that affect bees and hives." }
-          ].map((item, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-lg p-6 transition-transform transform hover:scale-105">
-              <h3 className="text-xl font-semibold mb-3 text-green-600">{item.title}</h3>
-              <p className="text-gray-700">{item.description}</p>
+        {/* New Post Form */}
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold text-brown mb-4">Create a New Post</h2>
+          <form onSubmit={handleNewPostSubmit} className="bg-page rounded-lg p-4 shadow-md">
+            <div className="mb-4">
+              <input
+                type="text"
+                className="w-full p-2 border border-gray-300 rounded"
+                placeholder="Post Title"
+                value={newPostTitle}
+                onChange={(e) => setNewPostTitle(e.target.value)}
+              />
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Events Section */}
-      <section id="events" className="mb-14">
-        <div className="flex items-center mb-6">
-          <FaCalendarAlt className="text-4xl text-orange-700 mr-4 animate-pulse" />
-          <h2 className="text-3xl font-semibold text-blue-700">Upcoming Events</h2>
-        </div>
-        <p className="text-base mb-6 text-gray-800">
-          Participate in community events to learn more and connect with other beekeepers. Check out our upcoming events and mark your calendar!
-        </p>
-        <div className="grid md:grid-cols-2 gap-8">
-          {[
-            { title: "Beekeeping Workshop", date: "August 15, 2024", description: "A hands-on workshop covering essential beekeeping skills." },
-            { title: "Honey Tasting Event", date: "September 10, 2024", description: "Sample various honey types and learn about their unique flavors." },
-            { title: "Pest Management Seminar", date: "October 5, 2024", description: "Learn about effective strategies for managing common bee pests." },
-            { title: "Community Meetup", date: "November 20, 2024", description: "Network with other beekeepers and discuss latest trends and challenges." }
-          ].map((event, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-lg p-6 transition-transform transform hover:scale-105">
-              <h3 className="text-xl font-semibold mb-3 text-orange-600">{event.title}</h3>
-              <p className="text-gray-700 mb-2">{event.date}</p>
-              <p className="text-gray-700">{event.description}</p>
+            <div className="mb-4">
+              <textarea
+                className="w-full p-2 border border-gray-300 rounded"
+                placeholder="Post Description"
+                value={newPostDescription}
+                onChange={(e) => setNewPostDescription(e.target.value)}
+              />
             </div>
-          ))}
+            <div className="mb-4">
+              <select
+                className="w-full p-2 border border-gray-300 rounded"
+                value={newPostCategory}
+                onChange={(e) => setNewPostCategory(parseInt(e.target.value))}
+              >
+                <option value="">Select Category</option>
+                {forumCategories.map((category) => (
+                  <option key={category.id} value={category.id}>{category.name}</option>
+                ))}
+              </select>
+            </div>
+            <button type="submit" className="w-full py-2 bg-goldD text-white rounded">Create Post</button>
+          </form>
         </div>
-      </section>
-
-      {/* Share & Connect Section */}
-      <section id="share-connect" className="mb-14">
-        <div className="flex items-center mb-6">
-          <FaShareAlt className="text-4xl text-blue-700 mr-4 animate-pulse" />
-          <h2 className="text-3xl font-semibold text-blue-700">Share & Connect</h2>
-        </div>
-        <p className="text-base mb-6 text-gray-800">
-          Share your beekeeping story and connect with others in the community. Use our social media channels to stay updated and engaged.
-        </p>
-        <div className="bg-white rounded-lg shadow-lg p-6">
-          <h3 className="text-2xl font-semibold mb-4 text-blue-600">Connect with Us</h3>
-          <p className="text-gray-700 mb-4">Follow us on social media to keep up with the latest news and events, and join our online community.</p>
-          <a href="#" className="text-blue-600 hover:underline">Follow us on Facebook →</a><br />
-          <a href="#" className="text-blue-600 hover:underline">Follow us on Twitter →</a>
-        </div>
-      </section>
-
+      </motion.div>
       <Footer />
-    </animated.div>
+    </div>
   );
 };
 
